@@ -1,0 +1,41 @@
+# Build directories
+build/
+CMakeFiles/
+bin/
+lib/
+out/
+.cache/
+
+# SQLite database files
+data/*.db
+data/*.db-journal
+data/*.db-wal
+data/*.db-shm
+
+# Drogon & web upload temp directories
+uploads/
+data/uploads/
+
+# IDE & Editor folders
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosv
+*.sln.docstates
+
+# OS specific files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Local Windows MinGW Drogon binaries (built from source in Docker for Linux)
+drogon/
+
+# Backups and temporary files
+backup*/
+*_backup.*
+*.log
+*.sql
+.env
+.env.*

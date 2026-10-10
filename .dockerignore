@@ -1,0 +1,28 @@
+# Build artifacts and caches
+build/
+bin/
+*.o
+*.obj
+*.exe
+*.dll
+*.a
+
+# Windows local Drogon MinGW binaries
+drogon/
+
+# Local database files
+data/
+*.db
+*.db*
+
+# Backups
+backup*/
+
+# Local scripts
+*.ps1
+
+# Git and IDE
+.git/
+.gitignore
+.vscode/
+.idea/

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mathan Mart - Multi-Seller Online Shopping</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <span>🚚 Free Express Delivery on orders across India</span>
+    <span>📞 24/7 Priority Support | 100% Genuine Tech Products</span>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">Mathan<span>Mart</span></a>
+
+    <div class="search-container">
+      <input type="text" id="home-search" placeholder="Search for Mobiles, Laptops, Audio, Gaming..." 
+             onkeydown="if(event.key==='Enter') doSearch()">
+      <button onclick="doSearch()">🔍</button>
+    </div>
+
+    <div class="header-actions" id="header-actions">
+      <!-- Injected by auth.js -->
+    </div>
+  </header>
+
+  <!-- Categories Navigation -->
+  <nav class="category-nav">
+    <a href="index.html" class="active">All Products</a>
+    <a href="products.html?category=Mobiles">Mobiles</a>
+    <a href="products.html?category=Laptops">Laptops</a>
+    <a href="products.html?category=Audio">Audio</a>
+    <a href="products.html?category=Accessories">Accessories</a>
+    <a href="products.html?category=Smart Wear">Smart Wear</a>
+    <a href="products.html?category=Gaming">Gaming</a>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-text">
+      <span class="hero-tag">🔥 Big Festive Tech Deals</span>
+      <h1>Upgrade Your Tech with Mathan Mart</h1>
+      <p>Discover flagship smartphones, high-performance laptops, pro audio gear, and gaming equipment from certified sellers nationwide.</p>
+      <a href="products.html" class="hero-cta">Explore Catalog →</a>
+    </div>
+    <div class="hero-visual" style="font-size: 90px; text-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+      💻 📱 🎧
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    <!-- Categories Grid -->
+    <div class="section-header">
+      <h2>Shop By Category</h2>
+      <a href="products.html">Browse All Categories →</a>
+    </div>
+
+    <div class="category-cards">
+      <a href="products.html?category=Mobiles" class="cat-card">
+        <span class="icon">📱</span>
+        <span>Mobiles</span>
+      </a>
+      <a href="products.html?category=Laptops" class="cat-card">
+        <span class="icon">💻</span>
+        <span>Laptops</span>
+      </a>
+      <a href="products.html?category=Audio" class="cat-card">
+        <span class="icon">🎧</span>
+        <span>Audio</span>
+      </a>
+      <a href="products.html?category=Accessories" class="cat-card">
+        <span class="icon">🔌</span>
+        <span>Accessories</span>
+      </a>
+      <a href="products.html?category=Smart Wear" class="cat-card">
+        <span class="icon">⌚</span>
+        <span>Smart Wear</span>
+      </a>
+      <a href="products.html?category=Gaming" class="cat-card">
+        <span class="icon">🎮</span>
+        <span>Gaming</span>
+      </a>
+    </div>
+
+    <!-- Featured Products -->
+    <div class="section-header">
+      <h2>⚡ Featured Products</h2>
+      <a href="products.html">View Full Collection →</a>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+      <!-- Populated dynamically via REST API -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Mathan Mart</h3>
+        <p>A multi-seller e-commerce platform built with C++20 Drogon, SQLite, and modern web standards. High-performance, secure, and reliable.</p>
+      </div>
+      <div class="footer-col">
+        <h3>Categories</h3>
+        <ul>
+          <li><a href="products.html?category=Mobiles">Mobiles</a></li>
+          <li><a href="products.html?category=Laptops">Laptops</a></li>
+          <li><a href="products.html?category=Audio">Audio Gear</a></li>
+          <li><a href="products.html?category=Gaming">Gaming Consoles</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Customer Care</h3>
+        <ul>
+          <li><a href="orders.html">Track Orders</a></li>
+          <li><a href="cart.html">View Cart</a></li>
+          <li><a href="login.html">Buyer Login</a></li>
+          <li><a href="register.html">Seller Registration</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h3>Technology Stack</h3>
+        <p>Backend: C++20 &amp; Drogon<br>Database: SQLite (Transactional)<br>Frontend: HTML5, CSS3, Vanilla JS</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 Mathan Mart. Capstone Project. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    function doSearch() {
+      const q = document.getElementById("home-search").value.trim();
+      if (q) {
+        window.location.href = `products.html?search=${encodeURIComponent(q)}`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      products.loadProducts("product-grid");
+    });
+  </script>
+</body>
+</html>

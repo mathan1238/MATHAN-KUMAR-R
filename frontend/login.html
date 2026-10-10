@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Mathan Mart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/auth.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">Mathan<span>Mart</span></a>
+    <div class="header-actions">
+      <a href="index.html" class="header-link">← Back to Shop</a>
+    </div>
+  </header>
+
+  <!-- Auth Content -->
+  <main class="auth-wrapper">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1>Welcome Back</h1>
+        <p>Sign in to your Mathan Mart account</p>
+      </div>
+
+      <form class="auth-form" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="login-email">Email Address</label>
+          <input type="email" id="login-email" required placeholder="name@example.com">
+        </div>
+
+        <div class="form-group">
+          <label for="login-pass">Password</label>
+          <input type="password" id="login-pass" required placeholder="••••••••">
+        </div>
+
+        <button type="submit" id="btn-login" class="btn btn-primary btn-block" style="padding: 13px; margin-top: 10px;">
+          Sign In
+        </button>
+      </form>
+
+      <!-- Quick Fill Credentials Box for Evaluator / Testing -->
+      <div class="demo-box">
+        <h4>🔑 Quick-Fill Demo Credentials</h4>
+        <div class="demo-buttons">
+          <button type="button" class="demo-btn" onclick="fillCreds('admin@mathanmart.com', 'Admin@123')">
+            🛡️ Admin
+          </button>
+          <button type="button" class="demo-btn" onclick="fillCreds('seller@mathanmart.com', 'Seller@123')">
+            🏪 Seller
+          </button>
+          <button type="button" class="demo-btn" onclick="fillCreds('buyer@mathanmart.com', 'Buyer@123')">
+            🛒 Buyer
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="register.html">Create one now</a>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    function fillCreds(email, pass) {
+      document.getElementById("login-email").value = email;
+      document.getElementById("login-pass").value = pass;
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById("login-email").value.trim();
+      const pass = document.getElementById("login-pass").value;
+
+      const btn = document.getElementById("btn-login");
+      btn.disabled = true;
+      btn.textContent = "Authenticating...";
+
+      const ok = await auth.login(email, pass);
+      if (!ok) {
+        btn.disabled = false;
+        btn.textContent = "Sign In";
+      }
+    }
+  </script>
+</body>
+</html>

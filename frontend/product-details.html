@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details - Mathan Mart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <style>
+    .product-details-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      background: white;
+      padding: 40px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+      margin-bottom: 40px;
+    }
+
+    .detail-img-box {
+      width: 100%;
+      height: 420px;
+      background: #f8fafc;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .detail-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-info {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .detail-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--secondary);
+      line-height: 1.25;
+    }
+
+    .detail-price {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .detail-desc {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.7;
+    }
+
+    .qty-picker {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 10px 0;
+    }
+
+    .qty-picker input {
+      width: 70px;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .reviews-section {
+      background: white;
+      padding: 40px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">Mathan<span>Mart</span></a>
+    <div class="search-container">
+      <input type="text" placeholder="Search products..." onkeydown="if(event.key==='Enter') window.location.href='products.html?search='+encodeURIComponent(this.value)">
+    </div>
+    <div class="header-actions" id="header-actions">
+      <!-- Injected by auth.js -->
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="category-nav">
+    <a href="index.html">Home</a>
+    <a href="products.html">All Products</a>
+    <a href="products.html?category=Mobiles">Mobiles</a>
+    <a href="products.html?category=Laptops">Laptops</a>
+    <a href="products.html?category=Audio">Audio</a>
+    <a href="products.html?category=Accessories">Accessories</a>
+    <a href="products.html?category=Smart Wear">Smart Wear</a>
+    <a href="products.html?category=Gaming">Gaming</a>
+  </nav>
+
+  <!-- Main Container -->
+  <main class="main-container" style="padding-top: 30px;">
+    <div id="product-view">
+      <p style="text-align: center; padding: 50px; color: var(--text-muted);">Loading product details...</p>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="reviews-section" id="reviews">
+      <h2 style="font-size: 22px; font-weight: 800; margin-bottom: 24px;">Customer Reviews &amp; Ratings</h2>
+      
+      <!-- Review submission box (for buyers who purchased this item) -->
+      <div id="review-form-container" style="background: #f8fafc; padding: 24px; border-radius: 12px; margin-bottom: 30px; border: 1px solid var(--border-color);">
+        <h3 style="font-size: 16px; font-weight: 700; margin-bottom: 12px;">Leave a Verified Review</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
+          Purchased this item? Share your honest experience with the community.
+        </p>
+        <form onsubmit="handleReviewSubmit(event)" style="display: flex; flex-direction: column; gap: 14px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <label style="font-size: 14px; font-weight: 600;">Rating:</label>
+            <select id="review-rating" style="padding: 8px 14px; border-radius: 8px; border: 1px solid var(--border-color); font-weight: 700;">
+              <option value="5">⭐⭐⭐⭐⭐ 5 - Excellent</option>
+              <option value="4">⭐⭐⭐⭐ 4 - Very Good</option>
+              <option value="3">⭐⭐⭐ 3 - Good</option>
+              <option value="2">⭐⭐ 2 - Fair</option>
+              <option value="1">⭐ 1 - Poor</option>
+            </select>
+          </div>
+          <div>
+            <textarea id="review-comment" rows="3" placeholder="Write your review comments here (optional)..." 
+                      style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid var(--border-color); font-family: inherit; font-size: 14px;"></textarea>
+          </div>
+          <div>
+            <button type="submit" class="btn btn-primary btn-sm" style="padding: 10px 20px;">
+              Submit Review
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Reviews list -->
+      <div id="reviews-list">
+        <!-- Loaded via reviews.js -->
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-bottom">
+      &copy; 2026 Mathan Mart. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script src="js/reviews.js"></script>
+  <script>
+    let currentProductId = 0;
+
+    function getProductId() {
+      const p = new URLSearchParams(window.location.search);
+      return parseInt(p.get("id"), 10) || 0;
+    }
+
+    async function loadDetails() {
+      currentProductId = getProductId();
+      if (!currentProductId) {
+        window.location.href = "products.html";
+        return;
+      }
+
+      const res = await api.get(`/products/${currentProductId}`);
+      const view = document.getElementById("product-view");
+
+      if (!res.success || !res.data) {
+        view.innerHTML = `
+          <div style="text-align: center; padding: 60px; background: white; border-radius: 12px;">
+            <h2>Product Not Found</h2>
+            <p style="color: var(--text-muted); margin: 12px 0 20px 0;">The requested product is no longer available.</p>
+            <a href="products.html" class="btn btn-primary">Back to Catalog</a>
+          </div>
+        `;
+        return;
+      }
+
+      const p = res.data;
+      const isOutOfStock = p.stock <= 0;
+      const fallbackImage = "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600";
+      const imageUrl = p.imageUrl || fallbackImage;
+
+      document.title = `${p.name} - Mathan Mart`;
+
+      view.innerHTML = `
+        <div class="product-details-wrap">
+          <div class="detail-img-box">
+            <img src="${imageUrl}" alt="${p.name}" onerror="this.src='${fallbackImage}'">
+          </div>
+          <div class="detail-info">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span class="product-badge" style="position: static;">${p.category}</span>
+              <span style="font-size: 13px; color: var(--text-muted);">Seller: <strong>${p.sellerName || 'Verified Merchant'}</strong></span>
+            </div>
+            <h1 class="detail-title">${p.name}</h1>
+            <div class="rating-row" style="font-size: 15px;">
+              <span class="rating-stars">${products.renderStars(p.averageRating)}</span>
+              <span><strong>${Number(p.averageRating).toFixed(1)}</strong> (${p.reviewCount} customer reviews)</span>
+            </div>
+            <div class="detail-price">${products.formatINR(p.price)}</div>
+            <p class="detail-desc">${p.description || 'No detailed description available.'}</p>
+            
+            <div style="margin-top: 10px;">
+              <span class="stock-tag ${isOutOfStock ? 'out-of-stock' : 'in-stock'}" style="font-size: 14px;">
+                ● ${isOutOfStock ? 'Currently Out of Stock' : `${p.stock} units available in stock`}
+              </span>
+            </div>
+
+            <div class="qty-picker">
+              <label for="detail-qty" style="font-weight: 600; font-size: 14px;">Quantity:</label>
+              <input type="number" id="detail-qty" value="1" min="1" max="${p.stock}" ${isOutOfStock ? 'disabled' : ''}>
+            </div>
+
+            <div style="display: flex; gap: 14px; margin-top: 10px;">
+              <button onclick="handleAddToCart()" class="btn btn-primary" style="flex: 1; padding: 14px; font-size: 16px;"
+                      ${isOutOfStock ? 'disabled style="opacity: 0.5;"' : ''}>
+                🛒 Add to Cart
+              </button>
+              <a href="cart.html" class="btn btn-secondary" style="padding: 14px 20px;">
+                Go to Cart
+              </a>
+            </div>
+          </div>
+        </div>
+      `;
+
+      reviews.loadReviews(currentProductId);
+    }
+
+    async function handleAddToCart() {
+      const qtyInput = document.getElementById("detail-qty");
+      const qty = parseInt(qtyInput.value, 10) || 1;
+      await products.addToCart(currentProductId, qty);
+    }
+
+    function handleReviewSubmit(e) {
+      reviews.submitReview(e, currentProductId);
+    }
+
+    document.addEventListener("DOMContentLoaded", loadDetails);
+  </script>
+</body>
+</html>

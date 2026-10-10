@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products Catalog - Mathan Mart</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <span>🚚 Free Express Delivery across India</span>
+    <span>📞 24/7 Customer Support</span>
+  </div>
+
+  <!-- Header -->
+  <header>
+    <a href="index.html" class="logo">Mathan<span>Mart</span></a>
+
+    <div class="search-container">
+      <input type="text" id="catalog-search" placeholder="Search products..." onkeydown="if(event.key==='Enter') filterProducts()">
+      <button onclick="filterProducts()">🔍</button>
+    </div>
+
+    <div class="header-actions" id="header-actions">
+      <!-- Injected by auth.js -->
+    </div>
+  </header>
+
+  <!-- Categories Navigation -->
+  <nav class="category-nav" id="cat-nav">
+    <a href="#" onclick="selectCategory('All', this)" class="active">All Products</a>
+    <a href="#" onclick="selectCategory('Mobiles', this)">Mobiles</a>
+    <a href="#" onclick="selectCategory('Laptops', this)">Laptops</a>
+    <a href="#" onclick="selectCategory('Audio', this)">Audio</a>
+    <a href="#" onclick="selectCategory('Accessories', this)">Accessories</a>
+    <a href="#" onclick="selectCategory('Smart Wear', this)">Smart Wear</a>
+    <a href="#" onclick="selectCategory('Gaming', this)">Gaming</a>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-container" style="padding-top: 30px;">
+    <div class="section-header">
+      <div>
+        <h1 id="catalog-heading" style="font-size: 26px; font-weight: 800;">All Products</h1>
+        <p id="filter-status" style="font-size: 14px; color: var(--text-muted); margin-top: 4px;">Showing real-time catalog items</p>
+      </div>
+      <button onclick="resetFilters()" class="btn btn-secondary btn-sm" id="btn-reset-filters" style="display: none;">
+        ✕ Clear Filters
+      </button>
+    </div>
+
+    <div class="product-grid" id="product-grid">
+      <!-- Populated dynamically via REST API -->
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-bottom">
+      &copy; 2026 Mathan Mart. Full-Stack C++20 Drogon E-Commerce Platform.
+    </div>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/products.js"></script>
+  <script>
+    let currentCategory = "All";
+
+    function getQueryParams() {
+      const p = new URLSearchParams(window.location.search);
+      return {
+        search: p.get("search") || "",
+        category: p.get("category") || "All"
+      };
+    }
+
+    function selectCategory(cat, el) {
+      currentCategory = cat;
+      document.querySelectorAll("#cat-nav a").forEach(a => a.classList.remove("active"));
+      if (el) el.classList.add("active");
+      filterProducts();
+    }
+
+    function filterProducts() {
+      const search = document.getElementById("catalog-search").value.trim();
+      const heading = document.getElementById("catalog-heading");
+      const resetBtn = document.getElementById("btn-reset-filters");
+
+      let title = currentCategory === "All" ? "All Products" : `${currentCategory}`;
+      if (search) title += ` matching "${search}"`;
+      heading.textContent = title;
+
+      if (currentCategory !== "All" || search) {
+        resetBtn.style.display = "inline-flex";
+      } else {
+        resetBtn.style.display = "none";
+      }
+
+      products.loadProducts("product-grid", {
+        search: search,
+        category: currentCategory
+      });
+    }
+
+    function resetFilters() {
+      document.getElementById("catalog-search").value = "";
+      currentCategory = "All";
+      document.querySelectorAll("#cat-nav a").forEach((a, i) => {
+        if (i === 0) a.classList.add("active");
+        else a.classList.remove("active");
+      });
+      filterProducts();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const q = getQueryParams();
+      if (q.search) {
+        document.getElementById("catalog-search").value = q.search;
+      }
+      if (q.category && q.category !== "All") {
+        currentCategory = q.category;
+        document.querySelectorAll("#cat-nav a").forEach(a => {
+          if (a.textContent.trim().toLowerCase() === q.category.toLowerCase()) {
+            a.classList.add("active");
+          } else {
+            a.classList.remove("active");
+          }
+        });
+      }
+      filterProducts();
+    });
+  </script>
+</body>
+</html>

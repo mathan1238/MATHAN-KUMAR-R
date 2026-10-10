@@ -1,0 +1,55 @@
+{
+  "listeners": [
+    {
+      "address": "0.0.0.0",
+      "port": 8080,
+      "https": false
+    }
+  ],
+  "db_clients": [],
+  "app": {
+    "threads_num": 4,
+    "enable_session": true,
+    "session_timeout": 86400,
+    "document_root": "./frontend",
+    "home_page": "index.html",
+    "use_implicit_page": true,
+    "implicit_page": "index.html",
+    "upload_path": "./data/uploads",
+    "file_types": [
+      "html",
+      "js",
+      "css",
+      "xml",
+      "xsl",
+      "txt",
+      "svg",
+      "ttf",
+      "otf",
+      "woff2",
+      "woff",
+      "eot",
+      "png",
+      "jpg",
+      "jpeg",
+      "gif",
+      "bmp",
+      "ico",
+      "webp"
+    ],
+    "max_connections": 10000,
+    "max_connections_per_ip": 0,
+    "load_dynamic_views": false,
+    "dynamic_views_path": ["./views"],
+    "log": {
+      "log_path": "",
+      "logfile_base_name": "",
+      "log_size_limit": 100000000,
+      "log_level": "INFO",
+      "display_local_time": true
+    }
+  },
+  "custom_config": {
+    "db_path": "data/mathan_mart.db"
+  }
+}
