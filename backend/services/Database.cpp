@@ -57,7 +57,8 @@ bool Database::initialize(const std::string& connStr) {
         return false;
     }
 
-    std::cout << "[Database] Connected to PostgreSQL database: mathan_mart" << std::endl;
+    std::cout << "[Database] Connected to PostgreSQL database: "
+              << (PQdb(conn_) ? PQdb(conn_) : "connected") << std::endl;
 
     createSchemaIfNotExist();
     seedDataIfEmpty();

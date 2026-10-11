@@ -56,6 +56,7 @@ if(WIN32)
 else()
     find_package(PostgreSQL REQUIRED)
     find_package(OpenSSL REQUIRED)
+    find_package(Threads REQUIRED)
     target_include_directories(MathanMartBackend PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_SOURCE_DIR}/models
@@ -69,5 +70,6 @@ else()
         ${PostgreSQL_LIBRARIES}
         OpenSSL::Crypto
         OpenSSL::SSL
+        Threads::Threads
     )
 endif()
