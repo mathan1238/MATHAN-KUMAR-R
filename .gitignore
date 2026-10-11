@@ -39,3 +39,4 @@ backup*/
 *.sql
 .env
 .env.*
+push_to_github.*
